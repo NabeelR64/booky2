@@ -92,7 +92,6 @@ class StorageService:
         if user:
             checkin = Checkin(user=user, created_at=datetime.now())
             _checkins.append(checkin)
-            return checkin
         else:
             raise Exception(f"User with PID {pid} does not exist.")
 
@@ -106,3 +105,29 @@ class StorageService:
             List of all checkins."""
         global _checkins
         return _checkins
+    
+    def delete_user(self, pid) -> int:
+
+        """Delete a specified user in the system.
+
+        Args:
+            pid of the user to delete
+
+        Returns:
+            PID of the deleted user
+        
+        Raises:
+                Exception if user with PID does not exist.
+        """
+
+
+        if pid in _registrations:
+            del _registrations[pid]
+            newList = []
+            for checkin in _checkins:
+                if checkin.user.pid != pid:
+                    newList.append(checkin)
+            _checkins = newList
+            return pid
+        else:
+            raise Exception(f"User with PID {pid} does not exist.")
