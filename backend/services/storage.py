@@ -87,11 +87,13 @@ class StorageService:
         Raises:
             Exception if user with PID does not exist.
         """
+        print()
         global _checkins
         user = self.get_user_by_pid(pid)
         if user:
             checkin = Checkin(user=user, created_at=datetime.now())
             _checkins.append(checkin)
+            return checkin
         else:
             raise Exception(f"User with PID {pid} does not exist.")
 

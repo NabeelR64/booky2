@@ -1,11 +1,11 @@
-import { Person } from './person';
+import { User } from './user';
 export class CheckIn{
     checkInTime: Date;
-    person: Person;
+    user: User;
 
-    constructor(checkInTime: Date, person: Person){
+    constructor(checkInTime: Date, user: User){
         this.checkInTime = checkInTime;
-        this.person = person;
+        this.user = user;
     }
 
     getDate(){
