@@ -39,10 +39,10 @@ def reset(storage_service: StorageService = Depends()) -> str:
         return "OK"
 
 @app.post("/api/checkin")
-def checkin(checkin: CheckinRequest, storage_service: StorageService = Depends()) -> Checkin:
+def checkin(request: CheckinRequest, storage_service: StorageService = Depends()) -> Checkin:
     """Create a new checkin."""
     try:
-        return storage_service.create_checkin(CheckinRequest.pid)
+        return storage_service.create_checkin(request.pid)
     except Exception as e:
         raise HTTPException(status_code=422, detail=str(e))
 

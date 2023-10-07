@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { CheckinService } from '../checkin.service';
 import { CheckIn } from '../checkin';
-import { Person } from '../person';
+import { User } from '../user';
 
 @Component({
   selector: 'app-checkin',
@@ -32,34 +32,36 @@ export class CheckinComponent {
       var first_name: string | null | undefined;
       var last_name: string | null | undefined;
 
-      this.checkInService.getRegisteredMembers().subscribe({
-        
-        next(user) {
-          console.log(user);
-        },
-        error(msg) {
-          console.log('Error Getting Location:');
-        }
-      })
+      let form = this.checkInForm.value;
+      let pid = parseInt(PID);
 
-      /*for (let i = 0;i<this.checkInService.getRegisteredMembers().length;i++){
-        if (this.checkInService.getRegisteredMembers()[i].pid === PID){
-          found = true;
-          first_name = this.checkInService.getRegisteredMembers()[i].firstName;
-          last_name = this.checkInService.getRegisteredMembers()[i].lastName;
-          break;
-        }
-      }
-      if (!found){
-        alert(PID + " could not be found");
-      }
-      else{
-        alert(first_name + " " + last_name + " has been checked in");
-        const newCheckIn = new CheckIn(new Date, new Person(PID, first_name, last_name))
-        this.checkInService.addCheckIn(newCheckIn);
-        this.checkInForm.reset();
-      }*/
+
+
+
+
+      this.checkInService
+      .addCheckIn(pid)
+      .subscribe({
+        next: (checkIn) => this.onSuccess(checkIn.user),
+        error: (err) => this.onError(err)
+      });
 
     }
   }
+
+
+  private onSuccess(user: User): void {
+    window.alert(`${user.first_name} ${user.last_name} is checked in.`);
+    this.checkInForm.reset();
+  }
+
+  private onError(err: Error) {
+    if (err.message) {
+      window.alert("PID not found");
+    } else {
+      window.alert("Unknown error: " + JSON.stringify(err));
+    }
+  }
+
+
 }

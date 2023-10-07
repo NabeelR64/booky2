@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Person } from './person';
+import { Injectable, importProvidersFrom } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { CheckinRequest } from './checkInRequest'
 import {CheckIn} from './checkin';
 import { RegistrationService } from './registration.service';
 import { Observable } from 'rxjs';
@@ -19,9 +18,10 @@ export class CheckinService {
 
 
   // TODO: post request
-  addCheckIn(checkIn: CheckIn){
-
-    this.http.post("/api/checkin", checkIn.person.pid);
+  addCheckIn(pid: number): Observable<CheckIn>{
+    //let ch: CheckinRequest = {pid};
+    console.log("pid = ", pid);
+    return this.http.post<CheckIn>("/api/checkin", { pid });
 
     //this.checkIns.push(checkIn);
   }
