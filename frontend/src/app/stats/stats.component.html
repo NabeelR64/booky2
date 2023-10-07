@@ -16,6 +16,22 @@
     </tbody>
 </table>
 
+<h2>Check-Ins</h2>
+<table>
+    <thead>
+        <td>Date/Time</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+    </thead>
+    <tbody>
+        <tr *ngFor="let checkin of checkIns$ | async">
+            <td>{{ checkin.checkInTime }}</td>
+            <td>{{ checkin.user.first_name}}</td>
+            <td>{{ checkin.user.last_name }}</td>
+        </tr>
+    </tbody>
+</table>
+
 <hr>
 
 <a routerLink="/">Home</a>

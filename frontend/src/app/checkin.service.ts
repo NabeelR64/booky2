@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CheckinRequest } from './checkInRequest'
 import {CheckIn} from './checkin';
 import { RegistrationService } from './registration.service';
-import { Observable } from 'rxjs';
+import { Observable, pipe, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,17 @@ export class CheckinService {
   }
 
   getCheckIns(): Observable<CheckIn[]> {
-    return this.http.get<CheckIn[]>("/api/checkin");
+    let val = this.http.get<CheckIn[]>("/api/checkin");
+
+    console.log(val);
+
+    val
+      .pipe(map((checkIns: CheckIn[]) => checkIns.map(checkin => checkin.checkInTime = new Date(checkin.checkInTime))));
+
+    console.log("val after pipe ");
+    console.log(val);
+
+    return val;
   }
 
   getRegisteredMembers(){
