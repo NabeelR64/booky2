@@ -11,6 +11,5 @@ export class CheckIn{
     getDate(){
         return this.checkInTime;
     }
-
     
 }
