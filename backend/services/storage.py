@@ -39,6 +39,7 @@ class StorageService:
             Exception if a user with the same PID is already registered.
         """
         global _registrations
+        global _checkins
         if len(str(user.pid)) != 9:
             raise Exception(f"Invalid PID: {user.pid}")
 
@@ -48,6 +49,10 @@ class StorageService:
         if user.pid in _registrations:
             raise Exception(f"User with PID {user.pid} already registered.")
         _registrations[user.pid] = user
+
+        #print('_checkins = ', _checkins)
+        #print('registrations = ', _registrations)
+
         return user
 
     def get_registrations(self) -> list[User]:
@@ -87,7 +92,6 @@ class StorageService:
         Raises:
             Exception if user with PID does not exist.
         """
-        print()
         global _checkins
         user = self.get_user_by_pid(pid)
         if user:
@@ -109,7 +113,8 @@ class StorageService:
         return _checkins
     
     def delete_user(self, pid) -> int:
-
+        global _checkins
+        global _registrations
         """Delete a specified user in the system.
 
         Args:
@@ -121,8 +126,9 @@ class StorageService:
         Raises:
                 Exception if user with PID does not exist.
         """
-
-
+        #print('reached storage!')
+        #print('_checkins = ', _checkins)
+        #print('registrations = ', _registrations)
         if pid in _registrations:
             del _registrations[pid]
             newList = []
