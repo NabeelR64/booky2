@@ -16,6 +16,7 @@ export class StatsComponent {
   public checkIns$: Observable<CheckIn[]>;
 
   private registrationService: RegistrationService;
+  private checkInService: CheckinService;
 
   constructor(registrationService: RegistrationService, checkInService: CheckinService) {
     this.users$ = registrationService.getUsers();
@@ -24,6 +25,7 @@ export class StatsComponent {
     //console.log('this is checkings' + this.checkIns$, typeof this.checkIns$);
 
     this.registrationService = registrationService;
+    this.checkInService = checkInService;
 
   }
 
@@ -41,6 +43,7 @@ export class StatsComponent {
 
   private onSuccess(user: User): void {
     this.users$ = this.registrationService.getUsers(); // reset the UI
+    this.checkIns$ = this.checkInService.getCheckIns();
   }
 
   private onError(err: Error) {
