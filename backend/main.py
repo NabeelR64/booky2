@@ -17,6 +17,7 @@ def list_registrations(storage_service: StorageService = Depends()) -> list[User
 @app.post("/api/registrations")
 def new_registration(user: User, storage_service: StorageService = Depends()) -> User:
     """Create a new user/registration."""
+    print('registered!')
     try:
         return storage_service.create_registration(user)
     except Exception as e:
@@ -58,7 +59,8 @@ def checkin(storage_service: StorageService = Depends()) -> list[Checkin]:
 @app.delete("/api/registrations/$PID")
 def deleteUser(pid: int, storage_service: StorageService = Depends()):
     """Delete user with given pid."""
-
+    print('delete function')
+    print('pid = ', pid)
     try:
         return storage_service.delete_user(pid)
     except Exception as e:

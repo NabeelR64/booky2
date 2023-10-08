@@ -53,7 +53,13 @@ export class RegistrationService {
     let user: User = {pid, first_name, last_name};
 
     return this.http.post<User>("/api/registrations", user)
+  }
 
+
+  // deletes the registration of a registered user
+  deleteUser(pid: number): Observable<User>{
+    //console.log('hit!');
+    return this.http.delete<User>("/api/registrations/$PID?pid=" + pid);
   }
 
 }
