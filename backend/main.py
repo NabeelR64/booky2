@@ -4,6 +4,8 @@ from services.storage import StorageService
 import os
 from models.checkin import Checkin
 from models.checkin_request import CheckinRequest
+from static_files import StaticFileMiddleware
+
 
 app = FastAPI()
 
@@ -65,3 +67,5 @@ def deleteUser(pid: int, storage_service: StorageService = Depends()):
         return storage_service.delete_user(pid)
     except Exception as e:
         raise HTTPException(status_code=402, detail=str(e))
+
+app.mount("/", StaticFileMiddleware("../static", "index.html"))
