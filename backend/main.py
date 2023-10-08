@@ -49,7 +49,7 @@ def checkin(request: CheckinRequest, storage_service: StorageService = Depends()
 
     
 @app.get("/api/checkin")
-def checkin(storage_service: StorageService = Depends()):
+def checkin(storage_service: StorageService = Depends()) -> list[Checkin]:
     """List all checkins."""
     try:
         return storage_service.get_checkins()

@@ -1,15 +1,13 @@
 import { User } from './user';
-export class CheckIn{
-    checkInTime: Date;
-    user: User;
 
-    constructor(checkInTime: Date, user: User){
-        this.checkInTime = checkInTime;
-        this.user = user;
-    }
+
+export interface CheckIn{
+    user: User;
+    created_at: Date;
 
     getDate(){
         return this.checkInTime;
     }
     
+
 }
