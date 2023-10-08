@@ -26,20 +26,32 @@ export class CheckinService {
     //this.checkIns.push(checkIn);
   }
 
+  // getCheckIns(): Observable<CheckIn[]> {
+  //   return this.http.get<CheckIn[]>("/api/checkin")
+  //     .pipe(
+  //       map((checkIns: CheckIn[]) => { //grab checkins
+  //         return checkIns.map(checkin => //for checkin in checkins
+  //           new CheckIn(new Date(checkin.checkInTime), checkin.user)
+  //         );
+  //       })
+  //     );
+  // }
+  
   getCheckIns(): Observable<CheckIn[]> {
-    let val = this.http.get<CheckIn[]>("/api/checkin");
-
-    console.log(val);
-
-    val
-      .pipe(map((checkIns: CheckIn[]) => checkIns.map(checkin => checkin.checkInTime = new Date(checkin.checkInTime))));
-
-    console.log("val after pipe ");
-    console.log(val);
-
-    return val;
+    let fixDate = (checkin: CheckIn): CheckIn =>  {
+      return { user: checkin.user, created_at: new Date(checkin.created_at) };
+    }
+    return this.http.get<CheckIn[]>("/api/checkin").pipe(map((checkIns: CheckIn[]) => checkIns.map(checkin => fixDate(checkin))));
+    // return this.http.get<CheckIn[]>("/api/checkin")
+    //   .pipe(
+    //     map((checkIns: CheckIn[]) => { //grab checkins
+    //       checkIns.map(checkin => //for checkin in checkins
+    //         { new Date(checkin.checkInTime) , checkin.user}
+    //       );
+    //     })
+    //   );
   }
-
+  
   getRegisteredMembers(){
     return this.registrationService.getUsers();
   }

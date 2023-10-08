@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let checkin of checkIns$ | async">
-            <td>{{ checkin.checkInTime }}</td>
+            <td>{{ checkin.created_at | customDate }}</td>
             <td>{{ checkin.user.first_name}}</td>
             <td>{{ checkin.user.last_name }}</td>
         </tr>

@@ -18,6 +18,7 @@ export class StatsComponent {
   constructor(registrationService: RegistrationService, checkInService: CheckinService) {
     this.users$ = registrationService.getUsers();
     this.checkIns$ = checkInService.getCheckIns();
+    //console.log('this is checkings' + this.checkIns$, typeof this.checkIns$);
   }
 
 }
