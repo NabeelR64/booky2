@@ -9,7 +9,6 @@ import { RegistrationComponent } from './registration/registration.component';
 import { StatsComponent } from './stats/stats.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckinComponent } from './checkin/checkin.component';
-import { CustomDatePipe } from './custom-date.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,6 @@ import { CustomDatePipe } from './custom-date.pipe';
     RegistrationComponent,
     StatsComponent,
     CheckinComponent,
-    CustomDatePipe,
   ],
   imports: [
     BrowserModule,
