@@ -7,9 +7,21 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  searchBooks(query: string): Observable<any[]> {
-    return this.http.get<any[]>(`/api/books?query=${query}`);
+  getVolume(volumeId: string): Observable<any> {
+    const encodedString = encodeURIComponent(volumeId);
+    const title = encodedString.replace(/%20/g, '%20');
+    console.log(title);
+    const url = `https://www.googleapis.com/books/v1/volumes/q=title:${title}`;
+    const headers = {
+      Authorization: `AIzaSyCz-eWeCBVGmZs8zpylRKIrVZRlsjPSxJE`
+    };
+
+    return this.httpClient.get(url, { headers });
   }
 }
+//   searchBooks(query: string): Observable<any[]> {
+//     return this.http.get<any[]>(`/api/books?query=${query}`);
+//   }
+// }

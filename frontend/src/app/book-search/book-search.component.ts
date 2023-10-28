@@ -11,6 +11,7 @@ import { FormBuilder } from '@angular/forms';
 export class BookSearchComponent {
   searchQuery : any = '';
   searchResults: any[] = [];
+  book: any;
 
   SearchForm = this.formBuilder.group({
     query: '',
@@ -23,20 +24,47 @@ export class BookSearchComponent {
   onSubmit() : void {
     this.searchQuery = this.SearchForm.value.query
     console.log(this.SearchForm.value.query)
+    if (this.searchQuery.trim() !== '') {
+      // this.bookService.searchBooks(this.searchQuery).subscribe(
+      //   (results) => {
+      //     this.searchResults = results;
+      //   },
+      //   (error) => {
+      //     console.error(error);
+      //   }
+      // );
+      this.bookService.getVolume(this.searchQuery).subscribe(
+        (response) => {
+          this.book = response; 
+          console.log('hi');
+      },
+      (error) => {
+            console.error(error);
+            console.log("sad")
+          }
+      );
+    } else {
+      this.searchResults = [];
+      
+    }
   }
   searchBooks() {
     
-    // if (this.searchQuery.trim() !== '') {
-    //   this.bookService.searchBooks(this.searchQuery).subscribe(
-    //     (results) => {
-    //       this.searchResults = results;
-    //     },
-    //     (error) => {
-    //       console.error(error);
-    //     }
-    //   );
-    // } else {
-    //   this.searchResults = [];
-    // }
+    if (this.searchQuery.trim() !== '') {
+      // this.bookService.searchBooks(this.searchQuery).subscribe(
+      //   (results) => {
+      //     this.searchResults = results;
+      //   },
+      //   (error) => {
+      //     console.error(error);
+      //   }
+      // );
+      this.bookService.getVolume(this.searchQuery).subscribe((response) => {
+        this.book = response; 
+        console.log('hi');
+      });
+    } else {
+      this.searchResults = [];
+    }
 }
 }
