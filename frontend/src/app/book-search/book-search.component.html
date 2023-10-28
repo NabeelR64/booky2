@@ -28,7 +28,12 @@
         <button type="submit" (click)="onSubmit()">Submit</button>
 
       </form>
-  <p *ngIf="book">Search Query: {{book}}</p>
+  <!-- <p *ngIf="book">Search Query: {{book}}</p> -->
+  <div *ngFor="let book of books">
+    <h2>Title: {{ book.title }}</h2>
+    <p>Authors: {{ book.authors }}</p>
+    <p>Description: {{ book.description }}</p>
+  </div>
   <div class="search-results">
     <ul>
       <li *ngFor="let book of searchResults">

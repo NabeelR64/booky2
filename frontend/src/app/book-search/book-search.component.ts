@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BookService } from '../book.service';
+import { Book, BookService } from '../book.service';
 import './book-search.component.css';
 import { FormBuilder } from '@angular/forms';
 
@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 export class BookSearchComponent {
   searchQuery : any = '';
   searchResults: any[] = [];
-  book: any;
+  books: Book[] = [];
 
   SearchForm = this.formBuilder.group({
     query: '',
@@ -35,7 +35,7 @@ export class BookSearchComponent {
       // );
       this.bookService.getVolume(this.searchQuery).subscribe(
         (response) => {
-          this.book = response; 
+          this.books = response; 
           console.log('hi');
       },
       (error) => {
@@ -48,23 +48,5 @@ export class BookSearchComponent {
       
     }
   }
-  searchBooks() {
-    
-    if (this.searchQuery.trim() !== '') {
-      // this.bookService.searchBooks(this.searchQuery).subscribe(
-      //   (results) => {
-      //     this.searchResults = results;
-      //   },
-      //   (error) => {
-      //     console.error(error);
-      //   }
-      // );
-      this.bookService.getVolume(this.searchQuery).subscribe((response) => {
-        this.book = response; 
-        console.log('hi');
-      });
-    } else {
-      this.searchResults = [];
-    }
-}
+  
 }
