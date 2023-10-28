@@ -13,7 +13,7 @@ export class BookService {
     const encodedString = encodeURIComponent(volumeId);
     const title = encodedString.replace(/%20/g, '%20');
     console.log(title);
-    const url = `https://www.googleapis.com/books/v1/volumes/q=title:${title}`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=title:${title}&key=AIzaSyCz-eWeCBVGmZs8zpylRKIrVZRlsjPSxJE`;
     const headers = {
       Authorization: `AIzaSyCz-eWeCBVGmZs8zpylRKIrVZRlsjPSxJE`
     };
